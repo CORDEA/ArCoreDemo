@@ -10,8 +10,13 @@ import com.google.ar.sceneform.rendering.Color
 import com.google.ar.sceneform.rendering.MaterialFactory
 import com.google.ar.sceneform.rendering.ShapeFactory
 import com.google.ar.sceneform.rendering.ViewRenderable
+import com.google.ar.sceneform.ux.TransformableNode
+import com.google.ar.sceneform.ux.TransformationSystem
 
-class ControllableCubeNode(private val context: Context) : Node() {
+class ControllableCubeNode(
+    private val context: Context,
+    transformationSystem: TransformationSystem
+) : TransformableNode(transformationSystem) {
     private var cubeNode: Node? = null
     private var itemNode: Node? = null
 

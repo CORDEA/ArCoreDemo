@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
             val node = AnchorNode(hitResult.createAnchor()).apply {
                 setParent(fragment.arSceneView.scene)
             }
-            ControllableCubeNode(this).apply {
+            ControllableCubeNode(this, fragment.transformationSystem).apply {
                 setParent(node)
             }
         }
