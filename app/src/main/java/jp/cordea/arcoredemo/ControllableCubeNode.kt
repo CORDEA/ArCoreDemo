@@ -21,6 +21,7 @@ class ControllableCubeNode(private val context: Context) : Node() {
         if (cubeNode == null) {
             cubeNode = Node().also {
                 it.setParent(this)
+                it.localPosition = Vector3(0.0f, 1.0f, 0.0f)
             }
             ViewRenderable.builder()
                 .setView(context, R.layout.ar_item)
