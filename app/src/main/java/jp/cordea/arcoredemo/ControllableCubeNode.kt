@@ -2,6 +2,7 @@ package jp.cordea.arcoredemo
 
 import android.content.Context
 import android.widget.Button
+import android.widget.SeekBar
 import androidx.core.content.ContextCompat
 import com.google.ar.sceneform.Node
 import com.google.ar.sceneform.math.Vector3
@@ -28,6 +29,12 @@ class ControllableCubeNode(private val context: Context) : Node() {
                     cubeNode!!.renderable = it
                     val view = it.view
                     view.findViewById<Button>(R.id.button).setOnClickListener {
+                        val seekBar1 = view.findViewById<SeekBar>(R.id.seek_bar_1)
+                        val seekBar2 = view.findViewById<SeekBar>(R.id.seek_bar_2)
+                        val seekBar3 = view.findViewById<SeekBar>(R.id.seek_bar_3)
+
+                        val scale = seekBar1.progress * 0.1f
+                        itemNode?.localScale = Vector3(scale, scale, scale)
                     }
                 }
         }
