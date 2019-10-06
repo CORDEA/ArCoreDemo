@@ -36,9 +36,20 @@ class ControllableCubeNode(
                     val view = it.view
                     view.findViewById<Button>(R.id.button).setOnClickListener {
                         val scaleSeekBar = view.findViewById<SeekBar>(R.id.seek_bar_scale)
+                        val rSeekBar = view.findViewById<SeekBar>(R.id.seek_bar_r)
+                        val gSeekBar = view.findViewById<SeekBar>(R.id.seek_bar_g)
+                        val bSeekBar = view.findViewById<SeekBar>(R.id.seek_bar_b)
 
                         val scale = scaleSeekBar.progress * 0.1f
                         itemNode?.localScale = Vector3(scale, scale, scale)
+                        itemNode?.renderable?.material?.setFloat3(
+                            MaterialFactory.MATERIAL_COLOR,
+                            Color(
+                                rSeekBar.progress / 100f,
+                                gSeekBar.progress / 100f,
+                                bSeekBar.progress / 100f
+                            )
+                        )
                     }
                 }
         }
