@@ -35,11 +35,9 @@ class ControllableCubeNode(
                     cubeNode!!.renderable = it
                     val view = it.view
                     view.findViewById<Button>(R.id.button).setOnClickListener {
-                        val seekBar1 = view.findViewById<SeekBar>(R.id.seek_bar_1)
-                        val seekBar2 = view.findViewById<SeekBar>(R.id.seek_bar_2)
-                        val seekBar3 = view.findViewById<SeekBar>(R.id.seek_bar_3)
+                        val scaleSeekBar = view.findViewById<SeekBar>(R.id.seek_bar_scale)
 
-                        val scale = seekBar1.progress * 0.1f
+                        val scale = scaleSeekBar.progress * 0.1f
                         itemNode?.localScale = Vector3(scale, scale, scale)
                     }
                 }

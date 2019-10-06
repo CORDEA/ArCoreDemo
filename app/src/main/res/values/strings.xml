@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">ArCoreDemo</string>
+
+    <string name="scale_text">Scale</string>
+    <string name="rgb_text">RGB</string>
+    <string name="apply_button">Apply</string>
 </resources>
