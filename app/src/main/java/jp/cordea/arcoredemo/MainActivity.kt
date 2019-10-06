@@ -3,22 +3,27 @@ package jp.cordea.arcoredemo
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import com.google.ar.core.HitResult
 import com.google.ar.sceneform.AnchorNode
 import com.google.ar.sceneform.math.Vector3
-import com.google.ar.sceneform.rendering.Color
-import com.google.ar.sceneform.rendering.MaterialFactory
-import com.google.ar.sceneform.rendering.ModelRenderable
-import com.google.ar.sceneform.rendering.ShapeFactory
+import com.google.ar.sceneform.rendering.*
 import com.google.ar.sceneform.ux.ArFragment
 import com.google.ar.sceneform.ux.TransformableNode
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var fragment: ArFragment
     private lateinit var redCube: ModelRenderable
+    private lateinit var item: ViewRenderable
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val fragment = supportFragmentManager.findFragmentById(R.id.ar_fragment) as ArFragment
+        fragment = supportFragmentManager.findFragmentById(R.id.ar_fragment) as ArFragment
+
+        ViewRenderable.builder()
+            .setView(this, R.layout.ar_item)
+            .build()
+            .thenAccept { item = it }
 
         MaterialFactory.makeOpaqueWithColor(
             this,
@@ -35,13 +40,18 @@ class MainActivity : AppCompatActivity() {
             }
 
         fragment.setOnTapArPlaneListener { hitResult, _, _ ->
-            val node = AnchorNode(hitResult.createAnchor()).apply {
-                setParent(fragment.arSceneView.scene)
-            }
-            TransformableNode(fragment.transformationSystem).apply {
-                setParent(node)
-                renderable = redCube
-            }.select()
+            addRenderable(hitResult, item)
+            addRenderable(hitResult, redCube)
+        }
+    }
+
+    private fun addRenderable(hitResult: HitResult, renderable: Renderable) {
+        val node = AnchorNode(hitResult.createAnchor()).apply {
+            setParent(fragment.arSceneView.scene)
+        }
+        TransformableNode(fragment.transformationSystem).apply {
+            setParent(node)
+            this.renderable = renderable
         }
     }
 }
